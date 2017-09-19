@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TankiGo map editor",
+  "name": "TankiGo map editor",
   "icons": [
     {
       "src": "favicon.ico",
