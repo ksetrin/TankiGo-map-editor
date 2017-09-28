@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {select} from '../actions/index';
 
 class MapField extends Component {
     drawLine(line) {
         return line.map((item, index) => {
             return (
-                <div className="line-element" key={index}>
+                <div onClick={() => this.props.select (item)}
+                     className="line-element"
+                     key={index}>
                     {item.surface}
                 </div>
             )
@@ -15,7 +18,9 @@ class MapField extends Component {
     showMap() {
         return this.props.map.map((item, index) => {
             return (
-                <div className="line">
+                // на сколько правильно так подсовывать индексы в кей?
+                // зачем вообще нужны эти кей?
+                <div key={index} className="line">
                     {this.drawLine(item)}
                 </div>
             )
@@ -36,4 +41,8 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(MapField);
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({select: select}, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(MapField);

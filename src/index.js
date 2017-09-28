@@ -10,6 +10,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(rootReducer);
 
+// как организовать страктуру с много компонентами?
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
