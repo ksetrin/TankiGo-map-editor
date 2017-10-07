@@ -1,5 +1,12 @@
-export default function () {
-    return [
+const initialState = {
+    selected: {
+        indexCol: null,
+        indexRow: null,
+        // mousedown: null,
+        // mouseup: null,
+        // mouseover: null,
+    },
+    cells: [
         [{
             id: 1,
             "surface": "wall"
@@ -14,7 +21,7 @@ export default function () {
         }],
         [{
             id: 4,
-            "surface": "ground",
+            "surface": "wall",
             "grace": "shrub"
         }, {
             id: 5,
@@ -30,7 +37,7 @@ export default function () {
         }],
         [{
             id: 7,
-            "surface": "ground",
+            "surface": "wall",
             "dynamic": true
         }, {
             id: 8,
@@ -45,4 +52,28 @@ export default function () {
             }
         }]
     ]
+};
+
+export default function map(state = initialState, action) {
+    switch (action.type) {
+        case 'SELECT_CELL':
+            return {
+                ...state,
+                selected: action.cell
+            };
+        case 'SET_SURFACE':
+            let cells = state.cells;
+
+            for (let ri = 0; ri < cells.length; ri++) {
+                for (let ci = 0; ci < cells[ri].length; ci++) {
+                    if (ri === state.selected.indexRow && ci === state.selected.indexCol) {
+                        cells[ri][ci].surface = action.payload;
+                    }
+                }
+            }
+            return {...state, cells: cells};
+
+        default:
+            return state
+    }
 }

@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import map from './map.js'
-import mapCell from './map-cell.js'
+import map from './map'
 
 const rootReducer = combineReducers({
     map,
-    mapCell
 });
 
 export default rootReducer

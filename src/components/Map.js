@@ -1,14 +1,35 @@
-import React from 'react';
-import MapField from '../containers/Map-field';
-import MapDetails from '../containers/Map-details';
+import React, {Component} from 'react';
 
-const Map = () => (
-    <div>
-        <h3>Map:</h3>
-        <MapField />
-        <hr/>
-        <MapDetails />
-    </div>
-);
+export default class Map extends Component {
+    drawLine(item, indexRow) {
 
-export default Map;
+        const { selectCell } = this.props.actions;
+        return item.map((item, indexCol) => {
+            return (
+                <div onClick={() => selectCell({indexRow, indexCol})}
+                     className="line-element"
+                     key={indexCol}>
+                    {item.surface} - {item.id}
+                </div>
+            )
+        });
+    }
+    showMap() {
+        return this.props.map.cells.map((item, indexRow) => {
+            return (
+                // на сколько правильно так подсовывать индексы в кей?
+                // зачем вообще нужны эти кей?
+                <div key={indexRow} className="line">
+                    {this.drawLine(item, indexRow)}
+                </div>
+            )
+        });
+    }
+    render() {
+        return (
+            <div className="app">
+                {this.showMap()}
+            </div>
+        );
+    }
+}
