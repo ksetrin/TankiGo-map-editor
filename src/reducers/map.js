@@ -2,13 +2,10 @@ const initialState = {
     selected: {
         indexCol: null,
         indexRow: null,
-        // mousedown: null,
-        // mouseup: null,
-        // mouseover: null,
     },
     cells: [
         [{
-            id: 1,
+            id: 1, // TODO 8.10.2017 : УБРАТЬ ID
             "surface": "wall"
         }, {
             id: 2,
@@ -54,6 +51,9 @@ const initialState = {
     ]
 };
 
+//TODO 8.10.2017 : КАК Определяется количество команд? Сколько макс?
+
+
 export default function map(state = initialState, action) {
     switch (action.type) {
         case 'SELECT_CELL':
@@ -64,6 +64,7 @@ export default function map(state = initialState, action) {
         case 'SET_SURFACE':
             let cells = state.cells;
 
+            // TODO 8.10.2017 : Как-то можно вынести это в  функцию-хелпер? код будет часто повторяться
             for (let ri = 0; ri < cells.length; ri++) {
                 for (let ci = 0; ci < cells[ri].length; ci++) {
                     if (ri === state.selected.indexRow && ci === state.selected.indexCol) {
